@@ -30,7 +30,7 @@ function normalize(wave) {
 }
 
 // Karplus-Strong string synthesis.
-class String {
+class KSString {
   constructor(sampleRate, frequency, filterBias) {
     this.delay = new Delay(sampleRate, 1.0 / frequency)
     this.lowpass = new OneZeroLP(filterBias)
@@ -136,7 +136,7 @@ function render(params, tone, sampleRate, waveLength, rnd) {
   // Render string.
   var string = []
   for (var i = 0; i < params.stack; ++i) {
-    string.push(new String(
+    string.push(new KSString(
       sampleRate,
       frequency * Math.pow(params.stackDetune, i),
       0.5
