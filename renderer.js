@@ -147,12 +147,13 @@ function render(params, tone, sampleRate, waveLength, rnd) {
   for (var i = 0; i < phase.length; ++i) {
     phase[i] = (params.stackDetune < 1.1)
       ? Math.floor(period * rnd.random())
-      : Math.floor(rnd.random())
+      : Math.floor(rnd.random()) // 乱数を消費。
   }
+  var waveLastIndex = wave.length - 1
   for (var i = 0; i < wave.length; ++i) {
     var sig = 0
     for (var j = 0; j < string.length; ++j) {
-      var index = Math.min(i + phase[j], wave.length - 1)
+      var index = Math.min(i + phase[j], waveLastIndex)
       sig += string[j].process(wave[index])
     }
     wave[i] += sig
